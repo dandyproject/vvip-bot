@@ -771,7 +771,7 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
 	 
 	 
   } 
-	} else if (msg.body.startsWith('!covid')) {
+	} else if (msg.body.startsWith('covid')) {
 		const get = require('got')
 		const body = await get.post('https://api.kawalcorona.com/indonesia', {
 
