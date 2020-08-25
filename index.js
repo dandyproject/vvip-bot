@@ -3,7 +3,6 @@ const fs = require("fs");
 const moment = require("moment");
 const qrcode = require("qrcode-terminal"); 
 const { Client, MessageMedia } = require("whatsapp-web.js"); 
-const { DownloaderHelper } = require("node-downloader-helper")
 const mqtt = require("mqtt"); 
 const listen = mqtt.connect("mqtt://test.mosquitto.org"); 
 const fetch = require("node-fetch"); 
@@ -771,98 +770,6 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
 	 
 	 
   } 
-	} else if (msg.body.startsWith('covid')) {
-		const get = require('got')
-		const body = await get.post('https://api.kawalcorona.com/indonesia', {
-
-		}).json();
-
-		console.log(body[0]['name'])
-		msg.reply("╭───「 COVID-19 INDONESIA 」\n├≽ Positif : " + body[0]['positif'] + "\n├≽ Sembuh : " + body[0]['sembuh'] + "\n├≽ Meninggal : " + body[0]['meninggal'] + "\n├≽ Dirawat : " + body[0]['dirawat'] + "\n╰─────────");
-
-	} else if (msg.body.startsWith("!translate ")) {
-		const translatte = require('translatte');
-		var codelang = msg.body.split("[")[1].split("]")[0];
-		var text = msg.body.split("]")[1];
-		translatte(text, {to: codelang}).then(res => {
-    		msg.reply(res.text);
-			}).catch(err => {
-    			msg.reply(err);
-		});
-	} else if (msg.body.startsWith('Join ')) {
-        const inviteCode = msg.body.slice(10).replace('https://chat.whatsapp.com/', '')
-        if (msg.body.slice(10).match(/(https:)/gi)) {
-	        try {
-        	    await client.acceptInvite(inviteCode);
-	            msg.reply('Otw Woiii');
-        	} catch (e) {
-	            msg.reply('Sepertinya link grup bermasalah');
-        	}
-		} else {
-			msg.reply('Ini link? 👊🤬')
-		}
-    } else if (msg.body.startsWith("lirik ")) {
-		const lagu = msg.body.slice(7)
-		const kyaa = lagu.replace(/ /g, '+')
-		const response = await fetch('http://scrap.terhambar.com/lirik?word='+kyaa)
-		if (!response.ok) throw new Error(`unexpected response ${response.statusText}`);
-		const json = await response.json()
-		if (json.status) await msg.reply(`Lirik lagu ${lagu.replace('-',' ')} \n\n\n${json.result.lirik}`)
-	} else if (msg.body.startsWith("bpk ")) {
-		const bap = msg.body.slice(7)
-		const bapac = bap.replace(/ /g, '+')
-		const response = await fetch('https://api.terhambar.com/bpk?kata='+bapac)
-		if (!response.ok) throw new Error(`unexpected response ${response.statusText}`)
-		const json = await response.json()
-		if (json.status) await msg.reply(`${json.text}`)
-
-	} else if (msg.body.startsWith("fb ")) {
-		const request = require('request');
-		var req = msg.body.split(" ")[1];
-		const { exec } = require("child_process");
-		var crypto = require('crypto');
-		var fs = require('fs');
-
-		var filename = 'video'+crypto.randomBytes(4).readUInt32LE(0)+'saya';
-		var path = require('path');
-		request.get({
-  			headers: {'content-type' : 'application/x-www-form-urlencoded'},
-  			url:     'https://fbdownloader.net/download/?url='+ req,
-		},function(error, response, body){
-    	let $ = cheerio.load(body);
-   		var gehu = $('a[rel="noreferrer no-follow"]').attr('href');
-		msg.reply("_Permintaan sedang diproses_");
-		exec('wget "' + gehu + '" -O mp4/gue.mp4', (error, stdout, stderr) => {
-     	const media = MessageMedia.fromFilePath('mp4/gue.mp4');
-		chat.sendMessage(media);
-		if (error) {
-	        console.log(`error: ${error.message}`);
-        	return;
-    	}
-    	if (stderr) {
-   	    	console.log(`stderr: ${stderr}`);
-			msg.reply("_Gagal Dilakukab_");
-        	return;
-    	}
-	    console.log(`stdout: ${stdout}`);
-		});
-	});
-	} else if (msg.body.startsWith('ig ')) {
-		const get = require('got')
-		var param = msg.body.substring(msg.body.indexOf(' '), msg.body.length);
-		const resp = await get.get('https://villahollanda.com/api.php?url='+ param).json()
-		console.log(resp)
-		if (resp.mediatype == 'photo') {
-			var ext = '.png';
-		} else {
-			var ext = '.mp4';
-		}
-		const dl = new DownloaderHelper(resp.descriptionc, __dirname, { fileName: `./ig/${resp}${ext}` })
-		console.log(dl.getStats)
-		dl.on('end', () => console.log('Download completed'))
-		await dl.start()
-		const media = MessageMedia.fromFilePath(`./ig/${resp}${ext}`)
-		await msg.reply(media)
 else if (msg.body.startsWith("translate ")) {
 const translatte = require('translatte');
 var codelang = msg.body.split("[")[1].split("]")[0];
