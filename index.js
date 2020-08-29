@@ -357,7 +357,7 @@ const botTol = () => {
   }
   else if (msg.body == "Bot") {
     // Send a new message as a reply to the current one
-    msg.reply("_Bot Aktif!!!_");
+    msg.reply("_Bot Aktif!_");
   }else if (msg.body.startsWith("anime")) {
 var fs = require('fs');
 var files = fs.readdirSync('./kwpin')
@@ -408,8 +408,8 @@ client.sendMessage(media);
           const text = await (await element.getProperty("src")).jsonValue();
          console.log(text);
 
-        exec('wget "' + text + '" -O mp4/ff.jpg', (error, stdout, stderr) => {
-  const media = MessageMedia.fromFilePath('mp4/ff.jpg');
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
 
 	chat.sendMessage(media);
 	if (error) {
@@ -499,9 +499,9 @@ client.sendMessage(media);
 	 
   })();
  }
- else if (msg.body.startsWith("pubg")) {
+ else if (msg.body.startsWith("triangle")) {
   msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
-     var h = msg.body.split("pubg ")[1];
+     var h = msg.body.split("trieangle ")[1];
 
     const { exec } = require("child_process");
 
@@ -512,7 +512,7 @@ client.sendMessage(media);
     });
     const page = await browser.newPage();
     await page
-      .goto("https://ephoto360.com/tao-chu-anh-sang-neon-phong-cach-galaxy-572.html", {
+      .goto("https://ephoto360.com/tao-logo-avatar-du-lich-phong-cach-den-trang-643.html", {
         waitUntil: "networkidle2",
       })
       .then(async () => {
@@ -977,7 +977,7 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
     });
     const page = await browser.newPage();
     await page
-      .goto("https://downloadgram.com/", {
+      .goto("https://id.savefrom.net/download-from-instagram", {
         waitUntil: "networkidle2",
       })
       .then(async () => {
@@ -1938,7 +1938,7 @@ exec('wget "' + d.url + '" -O ok.jpg', (error, stdout, stderr) => {
   }else if (msg.body == "menu") {
     msg.reply(`
       Nama : *DP WhatsApp Bot*
-      Dibuat Oleh : *Ahmad Dandi Subhani*
+      Dibuat Oleh : *@dandisubhani_*
       Jenis Perintah : *menu*
 
       Berikut daftar perintah yang bisa digunakan :
@@ -1948,13 +1948,13 @@ exec('wget "' + d.url + '" -O ok.jpg', (error, stdout, stderr) => {
       • *3* : Menu Horoscape.
       • *4* : Menu Cek Resi.
       • *5* : Random Anime.
-      • *6* : Random ADV. (BUG)
+      • *6* : Random ADV. 
       • *7* : Logo Maker Bot.`);
 }
 else if (msg.body == "0") {
  msg.reply( `
 Nama : *DP-WhatsApp Bot*
-Dibuat Oleh : *Ahmad Dandi Subhani*
+Dibuat Oleh : *@dandisubhani_*
 Versi : *1.2*
 
 • *subject* = Ganti nama grup.
@@ -2010,13 +2010,13 @@ Nama : *DP-WhatsApp Bot*
 Dibuat Oleh : *Ahmad Dandi Subhani*
 Versi : *1.2*
 
-•*nama* : Melihat arti dari nama kamu
+• *nama* : Melihat arti dari nama kamu
  cnth : nama Dandi
-•*sifat* : cari sifat berdasarkan nama dan tanggal lahir
+• *sifat* : cari sifat berdasarkan nama dan tanggal lahir
 contoh : sifat [Dandi] 20-01-2005
 •*sial* : Check hari apes mu berdasarkan tanggal lahir.
 cnth : sial 20 01 2005
-•*pasangan* : Check kecocokan jodoh
+• *pasangan* : Check kecocokan jodoh
 cnth : pasangan Dandi & Kepoo:v
 `);
 }	
@@ -2030,7 +2030,6 @@ Generate Maker Text
 • *glow* Namamu
 • *galaxy* Namamu
 • *art* Namanu
-• *pubg* Namamu
 `);
 }	
 
