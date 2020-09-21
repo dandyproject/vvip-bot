@@ -134,45 +134,6 @@ client.on("message_ack", (msg, ack) => {
     // The message was read
   }
 });
-client.on('group_join', async (notification) => {
-    // User has joined or been added to the group. 
-    console.log('join', notification);
-    const botno = notification.chatId.split('@')[0];
-    let number = await notification.id.remote;
-    client.sendMessage(number, `[INFO]: Hai New Member Jangan Lupa Intro Ea.`);
-  
-    const chats = await client.getChats();
-    for (i in chats) {
-        if (number == chats[i].id._serialized) {
-            chat = chats[i];
-        }
-    }
-    console.log('Group Details');
-    console.log('Name: ', chat.name);
-    console.log('Participants: ', participants);
-    console.log('Admins: ', admins);
-    //notification.reply('User joined.'); // sends message to self
-});
-
-client.on('group_leave', async (notification) => {
-    // User has joined or been added to the group. 
-    console.log('leave', notification);
-    const botno = notification.chatId.split('@')[0];
-    let number = await notification.id.remote;
-    client.sendMessage(number, `[INFO]: Dia Keluar Grup Karena Hpnya Kentang.`);
-  
-    const chats = await client.getChats();
-    for (i in chats) {
-        if (number == chats[i].id._serialized) {
-            chat = chats[i];
-        }
-    }
-    console.log('Group Details');
-    console.log('Name: ', chat.name);
-    console.log('Participants: ', participants);
-    console.log('Admins: ', admins);
-    //notification.reply('User joined.'); // sends message to self
-});
 
 client.on("group_update", notification => {
   // Group picture, subject or description has been updated.
@@ -195,15 +156,15 @@ client.on("message", async msg => {
 	participant
 	`)
 const botTol = () => {
-        msg.reply('[!] Maaf, fitur ini hanya untuk admin (owner).')
+        msg.reply('*Akses Untuk Menu Admin Ditolak*')
         return
     }
     const botTol2 = () => {
-        msg.reply(`[!] Maaf, fitur ini hanya untuk 'Group Chat'.`)
+        msg.reply(`*Akses ini hanya untuk di grup saja bro*`)
         return
     }
 
-    if (msg.body.startsWith('subjek ')) {
+    if (msg.body.startsWith('subject ')) {
         if (chat.isGroup) {
             if (dariGC.replace('@c.us', '') == chat.owner.user) {
                 let title = msg.body.slice(9)
@@ -224,16 +185,16 @@ const botTol = () => {
             const contact = await client.getContactById(participant.id._serialized);
 
             mentions.push(contact);
-			text += "Hai ";
+			text += "Hae";
             text += `@${participant.id.user} `;
 			text += "\n";
         }
 
         chat.sendMessage(text, { mentions });
-    } else if (msg.body.startsWith('desk ')) {
+    } else if (msg.body.startsWith('deskripsi ')) {
         if (chat.isGroup) {
             if (dariGC.replace('@c.us', '') == chat.owner.user ) {
-                let title = msg.body.split("desk ")[1]
+                let title = msg.body.split("deskripsi ")[1]
                 chat.setDescription(title)
             } else {
                 botTol()
@@ -241,20 +202,20 @@ const botTol = () => {
         } else {
             botTol2()
         }
-    } else if (msg.body.startsWith('admin ')) {
+    } else if (msg.body.startsWith('promote ')) {
         if (chat.isGroup) {
             if (dariGC.replace('@c.us', '') == chat.owner.user) {
                 const contact = await msg.getContact();
                 const title = msg.mentionedIds[0]
                 chat.promoteParticipants([`${title}`])
-                chat.sendMessage(`@${title.replace('@c.us', '')} sekarang anda adalah admin anjay 🔥`)
+                chat.sendMessage(` @${title.replace('@c.us', '')} sekarang anda adalah admin sob 🔥`)
             } else {
                 botTol()
             }
         } else {
             botTol2()
         }
-    } else if (msg.body.startsWith('member ')) {
+    } else if (msg.body.startsWith('demote ')) {
         if (chat.isGroup) {
             if (dariGC.replace('@c.us', '') == chat.owner.user) {
                 let title = msg.mentionedIds[0]
@@ -271,7 +232,7 @@ const botTol = () => {
                 let title = msg.body.slice(5)
                 if (title.indexOf('62') == -1) {
                     chat.addParticipants([`${title.replace('0', '62')}@c.us`])
-                    msg.reply(`Welcome @${title}! jangan lupa baca Deskripsi group Anjay😎👊🏻`)
+                    msg.reply(`Selamat datang @${title} Jangan lupa baca deksripsi grup yah.`)
                 } else {
                     msg.reply('Format nomor harus 0821xxxxxx')
                 }
@@ -306,11 +267,11 @@ const botTol = () => {
 
   if (msg.type == "ciphertext") {
     // Send a new message as a reply to the current one
-    msg.reply("Anjay");
+    msg.reply(":v.");
   }
-  else if (msg.body == "Tes") {
+  else if (msg.body == "Bot") {
     // Send a new message as a reply to the current one
-    msg.reply("Aktif Anjay");
+    msg.reply("Status Bot : *Aktif*");
   }else if (msg.body.startsWith("anime")) {
 var fs = require('fs');
 var files = fs.readdirSync('./kwpin')
@@ -325,10 +286,75 @@ const media = new MessageMedia('image/jpg', yuli);
 
 console.log(gambar);
 client.sendMessage(media);
-}
- else if (msg.body.startsWith("ff ")) {
-	 msg.reply("Sedang Proses . . .")
-	  var h = msg.body.split("ff ")[1];
+} else if (msg.body.startsWith("pornhub ")) {
+   msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+    var h = msg.body.split("pornhub ")[1];
+   var nama = h.split("] ")[1];
+   var kata1 = h.split("[")[1].split("]")[0];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-pornhub-style-logos-online-free-549.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-83d1c1baf4c44e72bacc6cb8fe1c92a0");
+     await page.type("#text-1", kata1);
+   
+      await page.type("#text-0", nama);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }                     
+                    
+ else if (msg.body.startsWith("makeff ")) {
+	 msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+	  var h = msg.body.split("makeff ")[1];
 	 var nama = h.split("] ")[1];
 	 var kata1 = h.split("[")[1].split("]")[0];
 	 	const { exec } = require("child_process");
@@ -361,10 +387,10 @@ client.sendMessage(media);
           const text = await (await element.getProperty("src")).jsonValue();
          console.log(text);
 
-        exec('wget "' + text + '" -O mp4/ff.jpg', (error, stdout, stderr) => {
-  const media = MessageMedia.fromFilePath('mp4/ff.jpg');
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
 
-	chat.sendMessage(media);
+	msg.reply(media);
 	if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -390,9 +416,9 @@ client.sendMessage(media);
 	 
 	 
   })();
- }
+ }                     
  else if (msg.body.startsWith("glow ")) {
-	 msg.reply("Sedang Proses . . .")
+	 msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
 	  var h = msg.body.split("glow ")[1];
 
 	 	const { exec } = require("child_process");
@@ -404,7 +430,7 @@ client.sendMessage(media);
     });
     const page = await browser.newPage();
     await page
-      .goto("https://en.ephoto360.com/advanced-glow-effects-74.html", {
+      .goto("https://ephoto360.com/hieu-ung-tao-chu-ky-anh-sang-nhieu-mau-sac-686.html", {
         waitUntil: "networkidle2",
       })
       .then(async () => {
@@ -425,7 +451,7 @@ client.sendMessage(media);
         exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
   const media = MessageMedia.fromFilePath('mp4/glow.jpg');
 
-	chat.sendMessage(media);
+	msg.reply(media);
 	if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -452,9 +478,559 @@ client.sendMessage(media);
 	 
   })();
  }
+ 
+ else if (msg.body.startsWith("tatto ")) {
+   msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+    var h = msg.body.split("tatto ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/xam-online/tao-hinh-xam-online-theo-ten-ban-309.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+}
+else if (msg.body.startsWith("lol ")) {
+   msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+    var h = msg.body.split("lol ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-cover/tao-cover-theo-ten-va-cac-tuong-trong-lol-218.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+}
+else if (msg.body.startsWith("sayap ")) {
+   msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+    var h = msg.body.split("sayap ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/hieu-ung-chu/hieu-ung-chu-galaxy-canh-thien-than-moi-289.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+}
+else if (msg.body.startsWith("p ")) {
+   msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+    var h = msg.body.split("p ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/hieu-ung-game/tao-hinh-nen-lien-quan-theo-ten-cho-dien-thoai-298.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+}
+else if (msg.body.startsWith("goldplay ")) {
+   msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+    var h = msg.body.split("goldplay ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-chung-nhan-nut-bac-nut-vang-online-485.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+  }
+ else if (msg.body.startsWith("triangle")) {
+  msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+     var h = msg.body.split("trieangle ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-logo-avatar-du-lich-phong-cach-den-trang-643.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+ else if (msg.body.startsWith("art ")) {
+   msg.reply("_Permintaan sedang diproses_ *Jangan dispam*")
+    var h = msg.body.split("art ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/hieu-ung-chu/tao-hieu-ung-chu-nghe-thuat-tren-tuong-72.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+ else if (msg.body.startsWith("galaxy ")) {
+   msg.reply("_Permintaan sedang diproses_ *Jangan di Spam*")
+    var h = msg.body.split("galaxy ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-chu-anh-sang-neon-phong-cach-galaxy-572.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+ else if (msg.body.startsWith("wolf")) {
+   msg.reply("_Tunggu Bentar Bang Jago ..._")
+    var h = msg.body.split("wolf ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-logo-avatar-wolf-galaxy-online-366.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/glow.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/glow.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
   else if (msg.body.startsWith("fb ")) {
-    msg.reply(`*Sedang diproses . . .*`);
-    let link = msg.body.split(" ")[1];
+    msg.reply(`_Permintaan sedang diproses_`);
+    let link = msg.body.split("fb ")[1];
 	var namafile = "gue.mp4"
 	const { exec } = require("child_process");
     const browser = await puppeteer.launch({
@@ -470,7 +1046,7 @@ client.sendMessage(media);
     });
     const page = await browser.newPage();
     await page
-      .goto("https://id.savefrom.net/download-from-instagram", {
+      .goto("https://id.savefrom.net/9-how-to-download-facebook-video.html", {
         waitUntil: "networkidle2",
       })
       .then(async () => {
@@ -490,19 +1066,20 @@ client.sendMessage(media);
           );
           const judul1 = await (await judul.getProperty("title")).jsonValue();
           console.log(
-            `[${moment().format("hh:mm:ss")}][fb][${
+            `[${moment().format("hh:mm:ss")}][!fb][${
               msg.from
             }] > Berhasil Dilakukan`
           );
-          msg.reply( `*BERHASIL DOWNLOAD*
+          msg.reply(
+            `*BERHASIL!!!*
 Judul : ${judul1}
 
-FB Downloader`);
+			           `);
 		  
 exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) => {
   const media = MessageMedia.fromFilePath('mp4/'+ namafile +'.mp4');
 
-	msg.reply(media);
+	chat.sendMessage(media);
 	if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -517,7 +1094,7 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
           browser.close();
         } catch (error) {
           console.log(
-            `[${moment().format("hh:mm:ss")}][fb][${
+            `[${moment().format("hh:mm:ss")}][playdl][${
               msg.from
             }] > GAGAL Dilakukan`
           );
@@ -529,17 +1106,17 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
       })
       .catch((err) => {
         console.log(
-          `[${moment().format("hh:mm:ss")}][fb][${msg.from}] > GAGAL Dilakukan`
+          `[${moment().format("hh:mm:ss")}][fbdl][${msg.from}] > GAGAL Dilakukan`
         );
         msg.reply(
-          `[GAGAL] Server Sedang Down!`
+          `[GAGAL] Server Sedang Down!\n\nSilahkan Coba Beberapa Saat Lagi!`
         );
         browser.close();
       });
 	 
 	 
   } 
-else if (msg.body.startsWith("tr ")) {
+else if (msg.body.startsWith("translate ")) {
 const translatte = require('translatte');
 var codelang = msg.body.split("[")[1].split("]")[0];
 var text = msg.body.split("]")[1];
@@ -553,9 +1130,9 @@ else if (msg.body.startsWith('join ')) {
         const inviteCode = msg.body.split(' ')[1];
         try {
             await client.acceptInvite(inviteCode);
-            msg.reply('Bot dah Join');
+            msg.reply('Joined the group!');
         } catch (e) {
-            msg.reply('Link Grup Tidak Valid');
+            msg.reply('That invite code seems to be invalid.');
         }
     }
 else if (msg.body.startsWith("lirik ")) {
@@ -563,16 +1140,17 @@ else if (msg.body.startsWith("lirik ")) {
 	var artis = get.split("-")[0];
 
 	var lirik = get.split("-")[1];
-	const { getLyrics, getSong } = require('genius-lyrics-api');
+	const { getLyrics } = require("genius-lyrics-api");
 const options = {
-	apiKey: 'rN3QmPYNX4zdy60VX9JB9G1w-gThM1K3q1EbhCpOcOfNZkp_2VzbJ6jwBcfwFU42',
+	apiKey: 'NvLyzudSQ3xvZNwGaMzleGIFEDSe6qeQHl6gShNALO3LUI40mmS-nDT611UED5E7',
 	title: lirik,
 	artist: artis,
 	optimizeQuery: true
 };
 
+getLyrics(options).then((lyrics) => msg.reply(`
 
-
+${lyrics}`));
 
 }
 	else if (msg.body.startsWith("wiki ")) {
@@ -601,7 +1179,7 @@ msg.reply(fik)
 });
 
 }
-else if (msg.body.startsWith("fbd ")) {
+else if (msg.body.startsWith("fbdl ")) {
 
 const request = require('request');
 var req = msg.body.split(" ")[1];
@@ -613,14 +1191,14 @@ var filename = 'video'+crypto.randomBytes(4).readUInt32LE(0)+'saya';
 var path = require('path');
 request.get({
   headers: {'content-type' : 'application/x-www-form-urlencoded'},
-  url:     'https://fbdownloader.net/download/?url='+ req,
+  url:     'https://id.savefrom.net/9-how-to-download-facebook-video.html'+ req,
 },function(error, response, body){
     let $ = cheerio.load(body);
    var gehu = $('a[rel="noreferrer no-follow"]').attr('href');
-msg.reply("Sedang diproses . . .");
+msg.reply("bentarr lagi di proses dulu ya .. 😣");
 exec('wget "' + gehu + '" -O mp4/gue.mp4', (error, stdout, stderr) => {
      const media = MessageMedia.fromFilePath('mp4/gue.mp4');
-msg.reply(media);
+chat.sendMessage(media);
 	 
 	if (error) {
         console.log(`error: ${error.message}`);
@@ -628,7 +1206,7 @@ msg.reply(media);
     }
     if (stderr) {
         console.log(`stderr: ${stderr}`);
-		msg.reply("GAGAL");
+		msg.reply("_Gagal_");
         return;
     }
 
@@ -636,8 +1214,8 @@ msg.reply(media);
 });
 });
 }else if (msg.body.startsWith("igv ")) {
-    msg.reply(`*Sedang diproses . . .*`);
-    let link = msg.body.split(" ")[1];
+    msg.reply(`_Permintaan sedang diproses_`);
+    let link = msg.body.split("igv ")[1];
 	var namafile = link.split("/p/")[1].split("/")[0];
 
 	const { exec } = require("child_process");
@@ -649,7 +1227,7 @@ msg.reply(media);
         "--disable-dev-shm-usage",
         "--disable-accelerated-2d-canvas",
         "--disable-gpu",
-        "--window-size=1366x768",
+        "--window-size=1920x1080",
       ],
     });
     const page = await browser.newPage();
@@ -661,7 +1239,7 @@ msg.reply(media);
         await page.type("#sf_url", `${link}`);
         await page.click("#sf_submit");
         try {
-          msg.reply("Video sedang didownload . . .");
+          msg.reply("_Video sedang didownload_");
           await page.waitForSelector(
             "#sf_result > div > div.result-box.video > div.info-box > div.link-box.single > div.def-btn-box > a"
           );
@@ -676,12 +1254,15 @@ msg.reply(media);
           console.log(
             `[${moment().format("hh:mm:ss")}][!fb][${
               msg.from
-            }] > Berhasil Download`
+            }] > Berhasil Dilakukan`
           );
-          msg.reply(`*BERHASIL MENDOWNLOAD*
+          msg.reply(
+            `*BERHASIL..!!!*
 Judul : ${judul1}
-
-Video sedang dikirim . . .`);
+			  
+ 
+ Sedang mengirimkan video .. 🎬`
+          );
 
 exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) => {
   const media = MessageMedia.fromFilePath('mp4/'+ namafile +'.mp4');
@@ -703,7 +1284,7 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
           console.log(
             `[${moment().format("hh:mm:ss")}][!fb][${
               msg.from
-            }] > GAGAL`
+            }] > GAGAL Dilakukan`
           );
           msg.reply(
             `[GAGAL] PASTIKAN LINK VIDEO BERSIFAT PUBLIK DAN DAPAT DIAKSES OLEH SEMUA ORANG!*`
@@ -713,10 +1294,10 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
       })
       .catch((err) => {
         console.log(
-          `[${moment().format("hh:mm:ss")}][!fb][${msg.from}] > GAGAL Dilakukan`
+          `[${moment().format("hh:mm:ss")}][igv][${msg.from}] > GAGAL Dilakukan`
         );
         msg.reply(
-          `[GAGAL] Server Sedang Down`
+          `[GAGAL] Server Sedang Down!\n\nSilahkan Coba Beberapa Saat Lagi!`
         );
         browser.close();
       });
@@ -724,8 +1305,8 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
 	 
   } 
   else if (msg.body.startsWith("igp ")) {
-    msg.reply(`*Sedang diproses . . .*`);
-    let link = msg.body.split(" ")[1];
+    msg.reply(`*_Permintaan sedang diproses_*`);
+    let link = msg.body.split("igp ")[1];
 	var namafile = link.split("/p/")[1].split("/")[0];
 
 	const { exec } = require("child_process");
@@ -737,7 +1318,7 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
         "--disable-dev-shm-usage",
         "--disable-accelerated-2d-canvas",
         "--disable-gpu",
-        "--window-size=1366x768",
+        "--window-size=1920x1080",
       ],
     });
     const page = await browser.newPage();
@@ -749,7 +1330,7 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
         await page.type("#sf_url", `${link}`);
         await page.click("#sf_submit");
         try {
-          msg.reply("Photo sedang didownload . . .");
+          msg.reply("_Photo sedang didownload_");
           await page.waitForSelector(
             "#sf_result > div > div.result-box.video > div.info-box > div.link-box.single > div.def-btn-box > a"
           );
@@ -764,17 +1345,19 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
           console.log(
             `[${moment().format("hh:mm:ss")}][!fb][${
               msg.from
-            }] > Berhasil Didownload`
+            }] > Berhasil Dilakukan`
           );
-          msg.reply(`*BERHASIL MENDOWLOAD*
+          msg.reply(
+            `*BERHASIL..!!!*
 Judul : ${judul1}
-			  
-Photo sedang dikirim...`);
+
+_Sedang mengirimkan photo_`
+          );
 
 exec('wget "' + text + '" -O mp4/'+ namafile +'.jpg', (error, stdout, stderr) => {
   const media = MessageMedia.fromFilePath('mp4/'+ namafile +'.jpg');
 
-	msg.reply(media);
+	chat.sendMessage(media);
 	if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -789,34 +1372,34 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.jpg', (error, stdout, stderr) =>
           browser.close();
         } catch (error) {
           console.log(
-            `[${moment().format("hh:mm:ss")}][!fb][${
+            `[${moment().format("hh:mm:ss")}][igp][${
               msg.from
-            }] > GAGAL`
+            }] > GAGAL Dilakukan`
           );
           msg.reply(
-            `[GAGAL] PASTIKAN LINK VIDEO BERSIFAT PUBLIK DAN DAPAT DIAKSES OLEH SEMUA ORANG!*`
+            `[GAGAL]`
           );
           browser.close();
         }
       })
       .catch((err) => {
         console.log(
-          `[${moment().format("hh:mm:ss")}][!fb][${msg.from}] > GAGAL Dilakukan`
+          `[${moment().format("hh:mm:ss")}][igp][${msg.from}] > GAGAL Dilakukan`
         );
         msg.reply(
-          `[GAGAL] Server Sedang Down!`
+          `[GAGAL] Server Sedang Down!\n\nSilahkan Coba Beberapa Saat Lagi!`
         );
         browser.close();
       });
 	 
 	 
   } 
-else if (msg.body.startsWith("brain ")) {
-var hh = msg.body.split("brain ")[1]
+else if (msg.body.startsWith("brainly ")) {
+var hh = msg.body.split("brainly ")[1]
 var tanya = hh.replace(/ /g, "%20");
 const fetch = require('node-fetch')
 
-const url = "https://tools.aqin.my.id/api/brainly/?q="+ tanya
+const url = "https://amiruldev.com/api/brainly/?q="+ tanya
 var regex = /<br\s*[\/]?>/gi;
 const solution = () => {
   fetch(url).then(res => res.json()).then((res) => {
@@ -827,21 +1410,16 @@ res.data.questionSearch.edges.slice(-2).forEach(item => {
  var jawaban = item['content']
  var g = jawaban.replace(regex, "\n")
  var h  = g.replace(/<[^>]*>?/gm, '');
-  msg.reply(
-        `
-        
-      ======================
-	  
-        Pertanyaan : 
-		
-      *${tanyaan.replace(regex, "\n")}*
-      
-      
-      Jawaban : 
-	  
-      *${h}*
-	  ======================
-      `);
+  msg.reply(`=[WhatsBrainly]=
+
+=========================
+Pertanyaan : 
+${tanyaan.replace(regex, "\n")}
+
+Jawaban : 
+${h}
+==========================
+WhatsBrainly by Bot Ganteng`);
    
       })
       console.log("=========")
@@ -873,15 +1451,17 @@ var y = $.html().split('<b>PRIMBON HARI NAAS</b><br><br>')[1];
     var h  = x.replace(/<[^>]*>?/gm, '');
     var d = h.replace("&amp;", '&')
 console.log(""+ d);
-msg.reply(`-----------------------------------
-*Cek Hari Naas Kamu*
- 
+msg.reply(` 
+Nama : *DP WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Jenis Perintah : *sial tl bl thn*
+
+-----------------------------------
+ Cek Hari Naas Kamu ~
  
  ${d}
- 
- 
 ----------------------------------
- 
+*DP-WhatsApp © 2020* 
  `); 
 });
 }
@@ -906,14 +1486,22 @@ var y = $.html().split('<b>KECOCOKAN JODOH BERDASARKAN NAMA PASANGAN</b><br><br>
     var h  = x.replace(/<[^>]*>?/gm, '');
     var d = h.replace("&amp;", '&')
 console.log(""+ d);
-msg.reply(`-----------------------------------
-*Cek Kecocokan Jodoh Berdasarkan Nama*
+msg.reply(` 
+Nama : *DP WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Jenis Perintah : *pasangan nama & nama*
+
+-----------------------------------
+
+ *Cek Kecocokan Jodoh Berdasarkan Nama ~*
  
  
  ${d}
  
+----------------------------------
+*DP-WhatsApp © 2020* 
  
-----------------------------------`); 
+ `); 
 });
 }
  else if (msg.body.startsWith("loker ")) {
@@ -937,6 +1525,10 @@ const queryOptions = {
 indeed.query(queryOptions).then(res => {
 client.sendMessage(msg.from, 
 `
+Nama : *DP WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Jenis Perintah : *loker [kota] posisi*
+
 ==============================
 Nama Posisi :  *${res[0].title}*
 
@@ -999,7 +1591,7 @@ Link           : *${res[3].url}*
 });
 }
 
-else if (msg.body == "cek") {
+else if (msg.body == "wait") {
 	const fs = require("fs");
 const { exec } = require("child_process");
 
@@ -1024,13 +1616,16 @@ fetch("https://trace.moe/api/search", {
   .then(res => res.json())
   .then(result =>  {
 var teks = `
-Scene Anime Apa Ini?
+
+What Anime Is That ?
 
 Echi / Tidak : *${result.docs[0].is_adult}*
 Judul Jepang : *${result.docs[0].title}*
 Ejaan Judul : *${result.docs[0].title_romaji}*
 Episode : *${result.docs[0].episode}*
-Season  : *${result.docs[0].season}*`;
+Season  : *${result.docs[0].season}*
+
+`;
 var video = `https://trace.moe/preview.php?anilist_id=${result.docs[0].anilist_id}&file=${encodeURIComponent(result.docs[0].filename)}&t=${result.docs[0].at}&token=${result.docs[0].tokenthumb}`;
 exec('wget "' + video + '" -O anime.mp4', (error, stdout, stderr) => {
 
@@ -1062,7 +1657,7 @@ else{
 		const tutor = MessageMedia.fromFilePath('tutor.jpeg');
 
 		client.sendMessage(msg.from, tutor, {
-        caption: "Kirim gambar dengan caption *cek* \n sesuai gambar diatas lalu tunggu sampai \n kita menemukan hasilnya"
+        caption: "Kirim gambar dengan caption *wait* \n sesuai gambar diatas lalu tunggu sampai \n kita menemukan hasilnya"
       });
 	  }
 }
@@ -1077,7 +1672,7 @@ const { exec } = require("child_process");
 // Get gallery from book ID or book link
 nana.g(kode).then((g) => {
 if (g == 'Book not found!'){
-msg.reply("Kode nuklir nya salah , coba perhatiin lagi")
+msg.reply("Kode nuklir nya salah.")
 }else{
 var url = "https://t.nhentai.net/galleries/"+ g.media_id +"/cover.jpg"
 
@@ -1102,7 +1697,7 @@ let media = MessageMedia.fromFilePath('cover.jpg');
 })
 
 }else if (msg.body.startsWith("ytmp3 ")) {
-var url = msg.body.split(" ")[1];
+var url = msg.body.split("ytmp3 ")[1];
 var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
 
 const ytdl = require("ytdl-core")
@@ -1110,16 +1705,16 @@ const { exec } = require("child_process");
 if(videoid != null) {
    console.log("video id = ",videoid[1]);
 } else {
-    msg.reply("Videonya Ga Valid");
+    msg.reply("_Format yang digunakan salah._");
 }
 ytdl.getInfo(videoid[1]).then(info => {
-if (info.length_seconds > 10000){
-msg.reply("Terlalu Panjang Durasinya ")
+if (info.length_seconds > 18000){
+msg.reply("terlalu panjang.. ")
 }else{
 
 console.log(info.length_seconds)
 
-msg.reply("Sedang diproses . . .");
+msg.reply("_Permintaan sedang diproses_");
 var YoutubeMp3Downloader = require("youtube-mp3-downloader");
 
 //Configure YoutubeMp3Downloader with your settings
@@ -1139,13 +1734,16 @@ YD.on("finished", function(err, data) {
 
 var musik = MessageMedia.fromFilePath(data.file);
 
-msg.reply(`*Berhasil Convert* 
-----------------------------------
+msg.reply(` *+=[ Convert YT To MP3 ]=+*
+
 Nama File : *${data.videoTitle}*
 Nama : *${data.title}*
 Artis : *${data.artist}*
-----------------------------------`);
-chat.sendMessage(musik);
+
+
+*DP-WhatsApp © 2020* 
+`);
+msg.reply(musik);
 });
 YD.on("error", function(error) {
     console.log(error);
@@ -1155,7 +1753,7 @@ YD.on("error", function(error) {
 }
 
 else if (msg.body.startsWith("tts")) {
-	msg.reply('Wait. . .');
+	msg.reply('*Harap Patuhi Rules* | DP Bot');
 	var texttomp3 = require("text-to-mp3");
     var fs = require("fs");
 
@@ -1207,11 +1805,11 @@ texttomp3.getMp3(text, function(err, data){
 await new Promise(resolve => setTimeout(resolve, 500));
 
 	if(text.length > 500){ // check longness of text, because otherways google translate will give me a empty file
-  msg.reply("Maksimal 500 Karakter")
+  msg.reply("_Terlalu Panjang,Maksimal 500 Karakter_")
 }else{
 	const media = MessageMedia.fromFilePath(fn);
 
-	msg.reply(media);
+	chat.sendMessage(media);
 
 }
 
@@ -1232,9 +1830,12 @@ request.get({
 client.sendMessage(
         msg.from,
         `
-_${kata}_
+ _${kata}_
         
-*~${author}*` );
+    
+	*~${author}*
+         `
+      );
 
 });
 }
@@ -1254,9 +1855,12 @@ request.get({
 client.sendMessage(
         msg.from,
         `
-_${kata}_
+     _${kata}_
         
-*~${author}*`);
+    
+	*~${author}*
+         `
+      );
 
 });
 }
@@ -1278,12 +1882,19 @@ request.get({
     var x = f.replace(/<br\s*[\/]?>/gi, "\n");
     var h  = x.replace(/<[^>]*>?/gm, '');
 console.log(""+ h);
-msg.reply(
-        `*Arti Dari Namamu*
+msg.reply(`
+Nama : *DP WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Jenis Perintah : *nama spasi Nama*
+   
+*Arti Dari Namamu*
 
-----------------------------------
+  ----------------------------------
 Nama _*${nama}*_ ${h}
-----------------------------------`);
+  ----------------------------------
+*DP-WhatsApp © 2020* 
+`
+        );
 });
 }
 else if (msg.body.startsWith("sifat ")) {
@@ -1309,11 +1920,20 @@ request.post({
     var x = f.replace(/<br\s*[\/]?>/gi, "\n");
     var h  = x.replace(/<[^>]*>?/gm, '');
 console.log(""+ h);
-            msg.reply(`*Sifat Dari Nama dan Tanggal Lahir*
+            msg.reply(
+            `
+Nama : *DP WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Jenis Perintah : *sifat [Nama] tl-bl-thn*
+
+*Sifat Dari Nama dan Tanggal Lahir*
          
   ----------------------------------
-  Nama ${h}
-  ----------------------------------`);
+Nama ${h}
+  ----------------------------------
+*DP-WhatsApp © 2020* 
+`
+        );
 });
   }
  
@@ -1462,7 +2082,7 @@ client.sendMessage(
 }
 
  else if (msg.body.startsWith("yt ")) {
-const url = msg.body.split(" ")[1];
+const url = msg.body.split("yt ")[1];
 const exec = require('child_process').exec;
 
 var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
@@ -1471,12 +2091,12 @@ const ytdl = require("ytdl-core")
 if(videoid != null) {
    console.log("video id = ",videoid[1]);
 } else {
-    msg.reply("Videonya Gavalid.");
+    msg.reply("_Format yang digunakan salah_");
 }
-msg.reply("Sedang diproses . . .");
+msg.reply("_Video sedang didownload_");
 ytdl.getInfo(videoid[1]).then(info => {
-if (info.length_seconds > 1000){
-msg.reply("terlalu panjang.. \n sebagai gantinya \n kamu bisa klik link dibawah ini \π \n "+ info.formats[0].url)
+if (info.length_seconds > 18000){
+msg.reply("_Durasi terlalu panjang_ \n _Klik link dibawah ini untuk mendownload video._ \π \n "+ info.formats[0].url)
 }else{
 
 console.log(info.length_seconds)
@@ -1496,9 +2116,9 @@ function os_func() {
 }
 var os = new os_func();
 
-os.execCommand('ytdl ' + url + ' -q highest -o mp4/'+ videoid[1] +'.mp4').then(res=> {
+os.execCommand('ytd ' + url + ' -q highest -o mp4/'+ videoid[1] +'.mp4').then(res=> {
     var media = MessageMedia.fromFilePath('mp4/'+ videoid[1] +'.mp4');
-chat.sendMessage(media);
+msg.reply(media);
 }).catch(err=> {
     console.log("os >>>", err);
 })
@@ -1507,7 +2127,7 @@ chat.sendMessage(media);
 });
 
  }
-   else if (msg.body == "#donasi" ||
+   else if (msg.body == "donasi" ||
     msg.body === "donasi ") {
     // Send a new message to the same chat
     client.sendMessage(msg.from, ` 
@@ -1517,9 +2137,88 @@ chat.sendMessage(media);
      else if (msg.body == "rules" ||
     msg.body === "rules ") {
     // Send a new message to the same chat
-    client.sendMessage(msg.from, `Belum Diedit`);
+    msg.reply(` 
+Nama : *DP WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Jenis Perintah : *rules*
+
+*༺ PERATURAN BOT ༻*
+
+• Dilarang Spam
+• Dilarang Menggunakan Fitur Downloader Diatas 25menit / 25mb
+• Dilarang Telfon/Vc
+• Dilarang Share Bot Privat Ini
+• Dilarang Rusuh Menggunakan Fitur
+Direct Message
+• Dilarang Memakai Emot/Karakter
+Pada Menu Fs Maker
+
+**NB:* Melanggar akan di banned permanen
+
+
+	`);
   }
- else if (msg.body == "!randomhentai") {
+ else if (msg.body == "8888") {
+const cheerio = require('cheerio');
+const request = require('request');
+
+const { exec } = require("child_process");
+request.get({
+  headers: {'content-type' : 'application/x-www-form-urlencoded'},
+  url:     'https://api.computerfreaker.cf/v1/anime',
+ 
+},function(error, response, body){
+    let $ = cheerio.load(body);
+    var d = JSON.parse(body);
+console.log(d.url); 
+exec('wget "' + d.url + '" -O ok.jpg', (error, stdout, stderr) => {
+	var media = MessageMedia.fromFilePath('ok.jpg');
+
+	chat.sendMessage(media);
+	if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+});
+}
+else if (msg.body == "999") {
+const cheerio = require('cheerio');
+const request = require('request');
+
+const { exec } = require("child_process");
+request.get({
+  headers: {'content-type' : 'application/x-www-form-urlencoded'},
+  url:     'https://api.computerfreaker.cf/v1/dva',
+ 
+},function(error, response, body){
+    let $ = cheerio.load(body);
+    var d = JSON.parse(body);
+console.log(d.url); 
+exec('wget "' + d.url + '" -O adv.jpg', (error, stdout, stderr) => {
+	var media = MessageMedia.fromFilePath('adv.jpg');
+
+	chat.sendMessage(media);
+	if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+});
+}
+ else if (msg.body == "harom") {
 const cheerio = require('cheerio');
 const request = require('request');
 
@@ -1549,36 +2248,6 @@ exec('wget "' + d.url + '" -O ok.jpg', (error, stdout, stderr) => {
 });
 });
 }
-else if (msg.body == "randomanime") {
-const cheerio = require('cheerio');
-const request = require('request');
-
-const { exec } = require("child_process");
-request.get({
-  headers: {'content-type' : 'application/x-www-form-urlencoded'},
-  url:     'https://api.computerfreaker.cf/v1/anime',
- 
-},function(error, response, body){
-    let $ = cheerio.load(body);
-    var d = JSON.parse(body);
-console.log(d.url); 
-exec('wget "' + d.url + '" -O anime/nime.jpg', (error, stdout, stderr) => {
-	var media = MessageMedia.fromFilePath('anime/nime.jpg');
-
-	msg.reply(media);
-	if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-    }
-    if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-    }
-
-    console.log(`stdout: ${stdout}`);
-});
-});
-}
   else if (msg.body.startsWith("pesan ")) {
     // Direct send a new message to specific id
     let number = msg.body.split(" ")[1];
@@ -1594,103 +2263,129 @@ exec('wget "' + d.url + '" -O anime/nime.jpg', (error, stdout, stderr) => {
     // Send a new message to the same chat
     client.sendMessage(msg.from, "Gabut bangettt sihhh.. 🤭");
   }
-  else if (msg.body == "save euy" || msg.body == "save donk" || msg.body == "Save euy" || msg.body == "Save donk") {
-    client.sendMessage(msg.from, "Gas keun, ini chat ke sini aja -> wa.me/6285225145663, itu akun real ku ^_^")
+  else if (msg.body == "Save nomor gw donk" || msg.body == "save donk" || msg.body == "Save euy" || msg.body == "Save donk") {
+    client.sendMessage(msg.from, "Save nomor gw juga donk:v wa.me/6289636035164")
   }
   else if (msg.body == "kamu bot?") {
     client.sendMessage(msg.from, "y")
   }
  else if (msg.body == "p" ||
-    msg.body === "P") {
+    msg.body === "Assalamualaikum") {
     // Send a new message to the same chat
-    client.sendMessage(msg.from, "Iya?");
+    client.sendMessage(msg.from, "Waalaikumsalam Warahmatullahi Wabarakatuh");
   } else if (msg.body == "Assalamuallaikum" || msg.body == "Assalamu'alaikum" || msg.body == "mikum" || msg.body == "assalamuallaikum" || msg.body == "Assalamualaikum" || msg.body == "assalamualaikum") {
     client.sendMesssage(msg.from, "Waalaikumusallam");
   }else if (msg.body == "menu") {
- client.sendMessage(msg.from,  `
-️*List Menu*️️
-			
-➡️ admin = Menu Khusus Admin Grup
-➡️ menu1 = Fun Menu 
-➡️ menu2 = Downloader Menu
-➡️ menu3 = Horoscope Menu 
-`);
+    msg.reply(`
+      Nama : *DP WhatsApp Bot*
+      Dibuat Oleh : *@dandisubhani_*
+      Jenis Perintah : *menu*
+
+      Berikut daftar perintah yang bisa digunakan :
+      • *0* : Menu Admin.
+      • *1* : Menu Utama.
+      • *2* : Menu Downloader.
+      • *3* : Menu Horoscape.
+      • *4* : Menu Cek Resi.
+      • *5* : Random Anime. [ERROR]
+      • *6* : Random ADV. [ERROR] 
+      • *7* : Logo Maker Bot.`);
 }
-else if (msg.body == "admin") {
- client.sendMessage(msg.from,  `
- *subjek* = Ganti nama grup.
- *kick* = Kick member grup.
- *admin* = Promote admin grup.
- *member* = Menurunkan admin group.
- *add* = Menambah member group.
- *desk* = Ganti deskripsi grup.
+else if (msg.body == "0") {
+ msg.reply( `
+Nama : *DP-WhatsApp Bot*
+Dibuat Oleh : *@dandisubhani_*
+Versi : *1.2*
+
+• *subject* = Ganti nama grup.
+• *kick* = Kick member grup.
+• *promote* = Promote admin grup.
+• *demote* = Menurunkan admin group.
+• *add* = Menambah member group.
+• *deskripsi* = Ganti deskripsi grup.
  `);
  }
  
- else if (msg.body == "menu1") {
- client.sendMessage(msg.from,  `
-*randomanime* = untuk melihat gambar anime secara random
+ else if (msg.body == "1") {
+ msg.reply(`
+Nama : *DP-WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Versi : *1.2*
 
-*quotes* : Melihat quotes dari tokoh terkenal
-
-*lagu judul lagu*
-contoh: *lagu whatever it takes*
-
-*cek* : Menampilkan informasi anime dengan mengirim gambar dengan caption cek
-
-*brain* : Menampilkan jawaban yang terdapat pada brainly.
-contoh : brain siapa penemu motor
-
-*tr* : Menerjemahkan kedalam bahasa yang di inginkan
- contoh : _tr [en] kamu mau jadi pacar aku ga sayang ?_
- _untuk code bahasa bisa di cek dengan perintah *#codebahasa*
-
-*tts* : Mengubah teks kedalam suara / teks to speech
- contoh : _!tts kamu mau jadi pacar aku ga sayang ?_
- 
-*lirik* : Mencari lirik lagu
-contoh (Jika mengetahui nama artis) : lirik alan walker - faded
-contoh (Jika tidak mengetahui nama artis) : lirik - faded
+• *quotes* : Melihat quotes dari tokoh terkenal.
+• *wait* : Menampilkan informasi anime dengan mengirim gambar dengan caption wait.
+• *brainly* : Menampilkan jawaban yang terdapat pada brainly.
+• *translate* : Menerjemahkan kedalam bahasa yang di inginkan.
+• *codebahasa*: Melihat code bahasa.
+• *wiki* : Melihat artikel di Wikipedia.
+• *bucin* : Menampilkan quotes bucin.
+• *tts* : Mengubah teks kedalam suara.
+• *lirik* : Mencari lirik lagu
 `);
  }
-else if (msg.body == "menu2") {
- client.sendMessage(msg.from,  `
- 
- *yt* : Mendownload video dari youtube
-contoh : yt url
+else if (msg.body == "2") {
+ msg.reply(`
+Nama : *DP-WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Versi : *1.2*
 
-*ytmp3* : Mendownload mp3 dari youtube
-contoh : ytmp3 url
-
-*fbd* : Mendownload video dari facebook
-contoh : fbd url
-
-*igp* : Mendownload media fotodari instagram
-contoh : igp url
-
-*igv* : Mendownload video dari instagram
-contoh : igv url
+• *ytd* : Mendownload video dari youtube
+cnth : yt url
+• *ytmp3* : Mendownload mp3 dari youtube
+cnth : ytmp3 url
+• *fb* : Mendownload video dari facebook
+cnth : fbdl url
+• *igp* : Mendownload media fotodari instagram
+cnth : igp url
+• *igv* : Mendownload video dari instagram
+cnth : igv url
 
 `);
 }
 
-else if (msg.body == "menu3") {
-	client.sendMessage (msg.from, `
-*nama* : Melihat arti dari nama kamu
- contoh : nama Dandi
+else if (msg.body == "3") {
+	msg.reply(`
+Nama : *DP-WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Versi : *1.2*
 
-*sifat* : cari sifat berdasarkan nama dan tanggal lahir
+• *nama* : Melihat arti dari nama kamu
+ cnth : nama Dandi
+• *sifat* : cari sifat berdasarkan nama dan tanggal lahir
 contoh : sifat [Dandi] 20-01-2005
+• *sial* : Check hari apes mu berdasarkan tanggal lahir.
+cnth : sial 20 01 2005
+• *pasangan* : Check kecocokan jodoh
+cnth : pasangan Dandi & Kepoo:v
+`);
+}	
+else if (msg.body == "7") {
+	msg.reply(`
+Nama : *DP-WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
 
-*sial* : Check hari apes mu berdasarkan tanggal lahir.
-contoh : sial 20 01 2005
+Generate Maker Text
 
-*pasangan* : Check kecocokan jodoh
- contoh : pasangan Dandi & Cewek
+• *glow* Text
+• *galaxy* Text
+• *art* Text
+• *p* Text
+• *lol* Text
+• *tatto* Text
+• *sayap* Text
+• *goldplay* Text
+• *makeff* [Text2] Text1
+• *anmaker* [Text2] Text1
+• *pornhub* [Text2] Text1
+•
+•
+•
+
+*Ntar Ditambah Lagi*
 `);
 }	
 
-else if (msg.body == "!test") {
+else if (msg.body == "haram") {
 msg.reply(" Hallo silahkan reply pesan ini dan sebutkan umur kamu \n\n dengan format *umur(spasi) umur* \n contoh *umur 21*");
 
 }else if (msg.body.startsWith('umur ')){
@@ -1700,29 +2395,31 @@ msg.reply(" Hallo umur kamu belum cukup untuk menampilkan menu ini");
 }else{
 
  client.sendMessage(msg.from,  `
- 
- *!randomhentai* = untuk melihat gambar anime secara random
- 
- *!nh*  kode = untuk melihat info kode nhentai 
- 
- *!doujinshi* = untuk mendownload manga dalam bentuk file pdf
- 
+Gaboleh Cokkkkk Masi Kecill
  `
 );
 }
 }
-  else if (msg.body == "cekresi") {
+  else if (msg.body == "4") {
 	  msg.reply(`
-	  *jnt kode resi*
-	  *jne kode resi*
-	  *sicepat kode resi*
-	  *sap kode resi*
-	  *pcp kode resi*
-	  *lex kode resi*
+Nama : *DP-WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Versi : *1.2*
+
+• *jnt kode resi*
+• *jne kode resi*
+• *sicepat kode resi*
+• *sap kode resi*
+• *pcp kode resi*
+• *lex kode resi*
 	  `);
   }
-  else if (msg.body == "#codebahasa") {
+  else if (msg.body == "codebahasa") {
     msg.reply(`
+Nama : *DP-WhatsApp Bot*
+Dibuat Oleh : *Ahmad Dandi Subhani*
+Versi : *1.2*
+
 	Bahasa                Code
 ######               #####
 English                 |  en
@@ -1813,16 +2510,19 @@ Yiddish                 |  yi
 Yoruba                  |  yo
 Zulu                      |  zu
       ` );
-  } else if (msg.body == "!leave") {
+  } else if (msg.body == "Keluar lo") {
     // Leave the group
     let chat = await msg.getChat();
     if (chat.isGroup) {
       chat.leave();
     } else {
-      msg.reply("This command can only be used in a group!");
-      msg.reply("This command can only be used in a group!");
+      msg.reply("_Perintah ini hanya bisa digunakan digrup_");
+      msg.reply("_Perintah ini hanya bisa digunakan digrup_");
     }
-  } else if (msg.body.startsWith("lagu ")) {
+  } else if (msg.body.startsWith("lagu")) {
+    msg.reply("FITUR LAGU DIPINDAHKAN KE GRUP DONATE,UDAH DIKASIH GRATIS MALAH DISPAM [INFO]: wa.me/6289636035164")
+  } else if (msg.body.startsWith("down ")) { 
+    msg.reply("_Sedang mendownload lagu ..._");
 let axios = require('axios').default;
 
 async function searchYoutube(keyword) {
@@ -1865,7 +2565,7 @@ async function searchYoutube(keyword) {
         return id;
     };
 };
-var hh = msg.body.split("lagu ")[1];
+var hh = msg.body.split("down")[1];
 var keyword = hh.replace(/ /g, "+");
 //////////Calling Async Function//////////
 (async () => {
@@ -1882,7 +2582,7 @@ var YD = new YoutubeMp3Downloader({
     "outputPath": "./mp3",    // Where should the downloaded and en>
     "youtubeVideoQuality": "highest",       // What video quality sho>
     "queueParallelism": 100,                  // How many parallel down>
-    "progressTimeout": 2000                 // How long should be the>
+    "progressTimeout": 18000                 // How long should be the>
 });
 
 //Download video and save as MP3 file
@@ -1892,9 +2592,8 @@ YD.on("finished", function(err, data) {
 
 
 const musik = MessageMedia.fromFilePath(data.file);
-msg.reply(`🎶 Now Playing 🎶
-
-🔉  *${data.videoTitle}*`);
+msg.reply(`*[+] BERHASIL MENDOWNLOAD [+]*
+Judul : *${data.videoTitle}* `)
 msg.reply(musik);
 });
 YD.on("progress", function(data) {
